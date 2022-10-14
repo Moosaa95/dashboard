@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import Image from 'next/image'
@@ -13,7 +14,7 @@ export const Sidebar = () => {
   <div className="navbar-header">
     <ul className="nav navbar-nav flex-row">
       <li className="nav-item me-auto">
-        <a className="navbar-brand" href="index-2.html">
+        <a className="navbar-brand" href="/">
           <span className="brand-logo">
             <img
               src="/portrait/small/avatar-s-6.jpg"
@@ -34,7 +35,7 @@ export const Sidebar = () => {
       data-menu="menu-navigation"
     >
       <li className="active nav-item">
-        <a className="d-flex align-items-center" href="index-2.html">
+        <a className="d-flex align-items-center" href="/">
         <Icon.Home />
           <span className="menu-title text-truncate" data-i18n="Dashboards">
             Dashboards
@@ -52,7 +53,7 @@ export const Sidebar = () => {
           <li>
             <a
               className="d-flex align-items-center"
-              href="app-invoice-list.html"
+              href="#"
             >
               <Icon.Circle />
               <span className="menu-item text-truncate" data-i18n="List">
@@ -63,7 +64,7 @@ export const Sidebar = () => {
           <li>
             <a
               className="d-flex align-items-center"
-              href="app-invoice-list.html"
+              href="#"
             >
               <Icon.Circle />
               <span className="menu-item text-truncate" data-i18n="List">
@@ -84,7 +85,7 @@ export const Sidebar = () => {
           <li>
             <a
               className="d-flex align-items-center"
-              href="app-invoice-list.html"
+              href="#"
             >
               <Icon.Circle />
               <span className="menu-item text-truncate" data-i18n="List">
@@ -95,7 +96,7 @@ export const Sidebar = () => {
           <li>
             <a
               className="d-flex align-items-center"
-              href="app-invoice-list.html"
+              href="#"
             >
               <Icon.Circle />
               <span className="menu-item text-truncate" data-i18n="List">
@@ -116,7 +117,7 @@ export const Sidebar = () => {
           <li>
             <a
               className="d-flex align-items-center"
-              href="app-invoice-list.html"
+              href="#"
             >
               <Icon.Circle />
               <span className="menu-item text-truncate" data-i18n="List">
@@ -127,7 +128,7 @@ export const Sidebar = () => {
           <li>
             <a
               className="d-flex align-items-center"
-              href="app-invoice-list.html"
+              href="#"
             >
               <Icon.Circle />
               <span className="menu-item text-truncate" data-i18n="List">
@@ -138,7 +139,7 @@ export const Sidebar = () => {
         </ul>
       </li>
       <li className=" nav-item">
-        <a className="d-flex align-items-center" href="modal-examples.html">
+        <a className="d-flex align-items-center" href="/notes">
         <Icon.Book />
           <span className="menu-title text-truncate" data-i18n="Modal Examples">
             Notes
@@ -146,7 +147,7 @@ export const Sidebar = () => {
         </a>
       </li>
       <li className=" nav-item">
-        <a className="d-flex align-items-center" href="modal-examples.html">
+        <a className="d-flex align-items-center" href="/personal-settings">
         <Icon.Settings />
           <span className="menu-title text-truncate" data-i18n="Modal Examples">
             Settings
