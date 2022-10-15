@@ -66,7 +66,7 @@ export const Navbar = () => {
         >
           <a
             className="dropdown-item"
-            href="page-account-settings-account.html"
+            href="/settings"
           >
             <Icon.Settings className="me-50"/>
              Settings
