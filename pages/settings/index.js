@@ -8,7 +8,7 @@ import Image from 'next/image'
 import { Navbar } from '../components/Navbar'
 import Script from 'next/script'
 import { Sidebar } from '../components/Sidebar'
-import GeneralSettings from './general-settings'
+import GeneralSettings from './settings'
 
 
 
@@ -34,7 +34,7 @@ export default function Home() {
     content=""
   />
   <meta name="author" content="PIXINVENT" />
-  <title>General Settings - Nest Management System</title>
+  <title>Settings - Nest Management System</title>
   <link
     rel="apple-touch-icon"
     href="/images/ico/apple-icon-120.html"
@@ -46,7 +46,11 @@ export default function Home() {
   />
   <link
    rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600"
-    
+  />
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
   />
   <link
     rel="stylesheet"
@@ -139,6 +143,7 @@ export default function Home() {
 
 
         <Script src="./vendors/js/vendors.min.js"></Script>
+        <Script src='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js'></Script>
         <Script src="./vendors/js/charts/apexcharts.min.js"></Script>
         <Script src="./vendors/js/extensions/toastr.min.js"></Script>
         <Script src="./path/to/dist/feather.js"></Script>

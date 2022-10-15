@@ -147,7 +147,7 @@ export const Sidebar = () => {
         </a>
       </li>
       <li className=" nav-item">
-        <a className="d-flex align-items-center" href="/personal-settings">
+        <a className="d-flex align-items-center" href="/settings">
         <Icon.Settings />
           <span className="menu-title text-truncate" data-i18n="Modal Examples">
             Settings

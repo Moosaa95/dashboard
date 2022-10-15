@@ -5,11 +5,11 @@
 /* eslint-disable @next/next/no-css-tags */
 import Head from 'next/head'
 import Image from 'next/image'
-import Script from 'next/script'
-
 import { Navbar } from '../components/Navbar'
+import Script from 'next/script'
 import { Sidebar } from '../components/Sidebar'
-import PersonalSettings from './personal-settings'
+import AddUser from './add-user'
+
 
 
 
@@ -34,7 +34,7 @@ export default function Home() {
     content=""
   />
   <meta name="author" content="PIXINVENT" />
-  <title>Personal Settings - Nest Management System</title>
+  <title>Add User - Nest Management System</title>
   <link
     rel="apple-touch-icon"
     href="/images/ico/apple-icon-120.html"
@@ -42,11 +42,10 @@ export default function Home() {
   <link
     rel="shortcut icon"
     type="image/x-icon"
-    href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/app-assets/images/ico/favicon.ico"
+    href=""
   />
   <link
    rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600"
-    
   />
   <link
     rel="stylesheet"
@@ -135,15 +134,7 @@ export default function Home() {
       >
         <Navbar />
         <Sidebar />
-        <PersonalSettings />
-       
-
-
-
-
-
-
-ß
+        <AddUser />
 
 
         <Script src="./vendors/js/vendors.min.js"></Script>
