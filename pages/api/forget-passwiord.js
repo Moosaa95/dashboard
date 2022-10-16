@@ -9,7 +9,7 @@ export default async (req, res) => {
 
   if (req.method === "POST") {
     console.log("inner");
-    const { username, password } = req.body;
+    const { username } = req.body;
 
     const config = {
       headers: {
@@ -20,16 +20,16 @@ export default async (req, res) => {
 
     const body = {
       username,
-      password,
+      
     };
 
   
     try{
-        const { data: accessResponse } = await axios.post("https://nest-srm.up.railway.app/auth/user/login/",body,config)
-    //   console.log(data); 
-        accessToken = accessResponse.access;
-        //change secure to true in production 
-        res.setHeader('Set-Cookie', cookie.serialize('refresh', accessResponse.refresh, {httpOnly:true, secure:false, sameSite:'strict', maxAge:60*60*24, path:'/'}))
+        const { data } = await axios.post("https://nest-srm.up.railway.app/auth/user/password-reset/",body,config)
+      console.log(data); 
+        // accessToken = accessResponse.access;
+        // //change secure to true in production 
+        // res.setHeader('Set-Cookie', cookie.serialize('refresh', accessResponse.refresh, {httpOnly:true, secure:false, sameSite:'strict', maxAge:60*60*24, path:'/'}))
 
     }catch(error) {
         if (error.response) {
@@ -50,17 +50,17 @@ export default async (req, res) => {
         return res.status(500).json(error.message)
       }
     
-      if (accessToken){
-          const userConfig = {
-              headers:{
+      // if (accessToken){
+      //     const userConfig = {
+      //         headers:{
 
-                  'Authorization' : 'Bearer ' + accessToken
-              }
-          }
-          const { data:userData } = await axios.get('https://nest-srm.up.railway.app/auth/user/create/', userConfig)
-          console.log(userData, 'oppopp');
-        res.status(200).json({user: userData, access:accessToken})
-      }
+      //             'Authorization' : 'Bearer ' + accessToken
+      //         }
+      //     }
+      //     const { data:userData } = await axios.get('https://nest-srm.up.railway.app/auth/user/create/', userConfig)
+      //     console.log(userData, 'oppopp');
+      //   res.status(200).json({user: userData, access:accessToken})
+      // }
   } else {
     console.log("ji");
     res.setHeader("Allow", ["POST"]);

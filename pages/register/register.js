@@ -1,5 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import React, {useState} from "react";
+import { useRouter } from "next/router";
+import React, {useState, useContext, useEffect} from "react";
+import Link from "next/link";
+import { Snackbar } from "@mui/material";
+import AuthenticationContext from "../../context/AuthenticationContext";
 
 export const Register = () => {
     const [adminFirstName, setAdminFirstName] = useState("");
@@ -14,52 +18,99 @@ export const Register = () => {
     const [state, setState] = useState("");
     const [address, setAddress] = useState("");
     const [gender, setGender] = useState("");
-    const [error, setError] = useState("")
+    const [open, setOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
 
 
-    const onSubmitHandler = (e) => {
-        e.preventDefault();
-        console.log(adminFirstName, 'name');
-        try{
-            fetch("https://nest-srm.up.railway.app/auth/registration/", {
-                method:'POST',
-                body: JSON.stringify({
-                    admin_email : adminEmail,
-                    admin_first_name : adminFirstName,
-                    address,
-                    password,
-                    phone_number:phoneNumber,
-                    company_email:companyEmail,
-                    company_name:companyName,
-                    country:'1',
-                    state : '2341',
-                    gender:'MALE',
-                    admin_username:adminUsername,
-                    admin_last_name: adminLastName, 
-                }),
-                headers : {
-                    'Content-Type' : 'application/json'
-                }
-            })
-            .then(res=>{
-                if (res.ok){
-                    console.log(res);
-                }
-                else{
-                    res.json().then(data=>{
-                        console.log(data)
-                    });
-                }
-            })
-        }
-        catch (err){
-            console.log(err);
-            setError({err:"something went wrong"})
-        }
+
+    const router = useRouter();
+
+    const {register, error, clearError} = useContext(AuthenticationContext)
+
+    useEffect(() =>{
+      if (error) {
+        setErrorMessage(error)
+        setOpen(true)
+        clearError();
+      }
+    }, [error])
+    const onSubmitHandler = e => {
+      e.preventDefault();
+      register({
+        admin_email : adminEmail,
+        admin_first_name : adminFirstName,
+        address,
+        password,
+        phone_number:phoneNumber,
+        company_email:companyEmail,
+        company_name:companyName,
+        country:'1',
+        state : '2341',
+        gender:'MALE',
+        admin_username:adminUsername,
+        admin_last_name: adminLastName, 
+      })
+
     }
+   
+
+const handleClose = () => {
+    setOpen(false);
+  }
+
+    // const onSubmitHandler = (e) => {
+    //     e.preventDefault();
+    //     console.log(adminFirstName, 'name');
+    //     try{
+    //         fetch("https://nest-srm.up.railway.app/auth/registration/", {
+    //             method:'POST',
+    //             body: JSON.stringify({
+                    // admin_email : adminEmail,
+                    // admin_first_name : adminFirstName,
+                    // address,
+                    // password,
+                    // phone_number:phoneNumber,
+                    // company_email:companyEmail,
+                    // company_name:companyName,
+                    // country:'1',
+                    // state : '2341',
+                    // gender:'MALE',
+                    // admin_username:adminUsername,
+                    // admin_last_name: adminLastName, 
+    //             }),
+    //             headers : {
+    //                 'Content-Type' : 'application/json'
+    //             }
+    //         })
+    //         .then(res=>{
+    //             if (res.ok){
+    //                 console.log(res);
+    //             }
+    //             else{
+    //                 res.json().then(data=>{
+    //                     console.log(data)
+    //                 });
+    //             }
+    //         })
+    //     }
+    //     catch (err){
+    //         console.log(err);
+    //         setError({err:"something went wrong"})
+    //     }
+    // }
   return (
     <>
       <div className="app-content content ">
+      <Snackbar
+        
+        anchorOrigin={{ vertical:"top", horizontal:"center" }}
+        open={open}
+        onClose={handleClose}
+        autoHideDuration={6000}
+        message={errorMessage}
+        key={'top_center'}
+        
+        />
         <div className="content-overlay" />
         <div className="header-navbar-shadow" />
         <div className="content-wrapper">
@@ -355,9 +406,15 @@ export const Register = () => {
                       </button>
                       <p className="text-center mt-2">
                         <span>Already have an account?</span>
-                        <a href="auth-login-cover.html">
-                          <span>&nbsp;Sign in instead</span>
-                        </a>
+                        {/* <a href="auth-login-cover.html"> */}
+                        <Link href="/login/">
+                          <span
+                          style={{
+                            cursor:"pointer"
+                          }}
+                          >&nbsp;Sign in instead</span>
+                        </Link> 
+                        {/* </a> */}
                       </p>
                     </form>
                   </div>

@@ -1,30 +1,55 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import * as Icon from "react-feather";
 import AuthenticationContext from "../../context/AuthenticationContext";
+import Link from "next/link";
+import { Snackbar } from "@mui/material";
 
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [open, setOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
 
+  
+  
   const router = useRouter();
 
-  const {login} = useContext(AuthenticationContext)
+  const {login, error, clearError} = useContext(AuthenticationContext)
 
-
+  useEffect(() =>{
+    if (error) {
+      setErrorMessage(error)
+      setOpen(true)
+      clearError();
+    }
+  }, [error])
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    console.log(username, password);
+    // console.log(username, password);
     login({username, password})
   }
-
+  
+  const handleClose = () => {
+    setOpen(false);
+  }
   return (
     <>
       <div className="app-content content ">
+        <Snackbar
+        
+        anchorOrigin={{ vertical:"top", horizontal:"center" }}
+        open={open}
+        onClose={handleClose}
+        autoHideDuration={6000}
+        message={errorMessage}
+        key={'top_center'}
+        
+        />
         <div className="content-overlay" />
         <div className="header-navbar-shadow" />
         <div className="content-wrapper">
@@ -118,9 +143,18 @@ export const Login = () => {
                     </form>
                     <p className="text-center mt-2">
                       <span>New on our platform?</span>
-                      <a href="auth-register-cover.html">
-                        <span>&nbsp;Create an account</span>
-                      </a>
+                      <Link href='/register/'
+                      style={{
+                        cursor:'pointer'
+                      }}
+                      >
+                        <span style={{
+                          cursor:'pointer'
+                        }}>&nbsp;Create an account</span>
+
+                      </Link>
+                      {/* <a href="auth-register-cover.html">
+                      </a> */}
                     </p>
                     <div className="divider my-2"></div>
                   </div>
