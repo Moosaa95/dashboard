@@ -36,16 +36,17 @@ export const AuthenticationProvider = ({ children }) => {
         try {
 			const { data:accessResponse } = await axios.post('https://nest-srm.up.railway.app/auth/user/login/', body, config)
 			console.log(accessResponse, 'opopopopo');
-			if (accessResponse && accessResponse.user) {
-				setUser(accessResponse.user)
-                console.log(user, 'user now');
+			// if (accessResponse && accessResponse.user) {
+			// 	setUser(accessResponse.user)
+            //     console.log(user, 'user now');
+			// }
+
+			if (accessResponse && accessResponse.token.access) {
+                console.log(accessResponse.token.access, 'looopwew');
+				setAccessToken(accessResponse.token.access)
 			}
 
-			if (accessResponse && accessResponse.access) {
-				setAccessToken(accessResponse.access)
-			}
-
-			router.push('/')
+			router.push('/add-user/')
 		} catch(error) {
 		  if (error.response && error.response.data) {
 		  	setError(error.response.data.message)
@@ -178,12 +179,61 @@ export const AuthenticationProvider = ({ children }) => {
         
     }
 
+    const addUser = async({first_name, last_name, email, gender}) => {
+
+        if (accessToken){
+            const config = {
+
+                    headers : {
+                        'Accept': 'application/json',
+                        'Content-Type':'application/json',
+                        'Authorization' : 'Bearer ' + accessToken
+                    }
+                }
+                const body = {
+                    first_name,
+                    last_name,
+                    email,
+                    gender
+                }
+        
+        
+                try {
+                    const { data:accessResponse } = await axios.post('https://nest-srm.up.railway.app/auth/user/create/', body, config)
+                    console.log(accessResponse, 'opopopopo');
+                    setSuccess(accessResponse.message)
+                   
+        
+                    router.push('/')
+                } catch(error) {
+                  if (error.response && error.response.data) {
+                      setError(error.response.data.message)
+                      return      
+                  } else if (error.request) {
+                    setError({message:"something went wrong"})
+                    return  
+                  } else {
+                    setError({message:"something went wrong"})
+                    return
+                  }
+            
+                }
+        }
+
+        
+
+        
+        // const {data} = await axios.post('https://nest-srm.up.railway.app/auth/user/login/', body, config)
+        
+    }
+    
+
 
     const clearError = () => {
         setError(null)
     }
     return (
-        <AuthenticationContext.Provider value={{ user, accessToken, error,  login, register, clearError, forgotPassword, success }}>
+        <AuthenticationContext.Provider value={{ user, accessToken, error,  login, register, clearError, forgotPassword, success, addUser }}>
             {children}
         </AuthenticationContext.Provider>
     )

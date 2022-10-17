@@ -1,11 +1,64 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import * as Icon from 'react-feather';
+import { useRouter } from 'next/router';
+import AuthenticationContext from '../../context/AuthenticationContext';
+import { Snackbar } from '@mui/material';
+
 
 const AddUser = () => {
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [gender, setGender] = useState("");
+    const [email, setEmail] = useState("");
+    const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState(null);
+
+
+    const {addUser, error, clearError, success} = useContext(AuthenticationContext)
+
+    useEffect(() =>{
+        if (error) {
+          setMessage(error)
+          setOpen(true)
+        //   clearError();
+        }
+        else if(success){
+          setMessage(success)
+          setOpen(true)
+        //   clearError();
+        }
+      }, [error, success])
+    
+      const onSubmitHandler = (e) => {
+          e.preventDefault()
+          addUser({
+              first_name:firstName,
+              last_name:lastName,
+              email:email,
+              gender:gender 
+          })
+      }
+
+      const handleClose = () => {
+        setOpen(false);
+      };
+    
+
+
+
+
   return (
     <>
         <div className="row">
             <div className="col-lg-2 col-md-2"></div>
+            <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={open}
+          onClose={handleClose}
+          autoHideDuration={6000}
+          message={message}
+          key={"top_center"}
+        />
             <div className="col-lg-8 col-md-8">
                 <div className="app-content content ">
                     <div className="content-wrapper container-xxl p-0">
@@ -28,7 +81,10 @@ const AddUser = () => {
                                             <div className="card-body py-2 my-25">
                                                 
                                                 {/* form */}
-                                                <form className="validate-form mt-2 pt-50">
+                                                <form className="validate-form mt-2 pt-50"
+                                                method='POST'
+                                                onSubmit={onSubmitHandler}
+                                                >
                                                 <div className="row">
                                                     <div className="col-12 col-sm-6 mb-1">
                                                     <label
@@ -45,6 +101,8 @@ const AddUser = () => {
                                                         placeholder="John"
                                                         defaultValue="John"
                                                         data-msg="Please enter first name"
+                                                        value={firstName}
+                                                        onChange={e=>setFirstName(e.target.value)}
                                                     />
                                                     </div>
                                                     <div className="col-12 col-sm-6 mb-1">
@@ -59,6 +117,8 @@ const AddUser = () => {
                                                         placeholder="Doe"
                                                         defaultValue="Doe"
                                                         data-msg="Please enter last name"
+                                                        value={lastName}
+                                                        onChange={e=>setLastName(e.target.value)}
                                                     />
                                                     </div>
                                                     <div className="col-12 col-sm-6 mb-1">
@@ -72,33 +132,23 @@ const AddUser = () => {
                                                         name="email"
                                                         placeholder="Email"
                                                         defaultValue="johndoe@gmail.com"
+                                                        value={email}
+                                                        onChange={e=>setEmail(e.target.value)}
                                                     />
                                                     </div>
                                                     <div className="col-12 col-sm-6 mb-1">
                                                     <div className="mb-1">
-                                                    <label className="d-block form-label">Gender</label>
-                                                    <div className="form-check my-50">
-                                                        <input
-                                                        type="radio"
-                                                        id="validationRadiojq1"
-                                                        name="validationRadiojq"
-                                                        className="form-check-input"
-                                                        />
-                                                        <label className="form-check-label" htmlFor="validationRadiojq1">
-                                                        Male
+                                                    <label className="form-label" htmlFor="basicSelect">
+                                                        Gender
                                                         </label>
-                                                    </div>
-                                                    <div className="form-check">
-                                                        <input
-                                                        type="radio"
-                                                        id="validationRadiojq2"
-                                                        name="validationRadiojq"
-                                                        className="form-check-input"
-                                                        />
-                                                        <label className="form-check-label" htmlFor="validationRadiojq2">
-                                                        Female
-                                                        </label>
-                                                    </div>
+                                                        <select className="form-select" id="basicSelect"
+                                                        value={gender}
+                                                        onChange={e=>setGender(e.target.value)}
+                                                        >
+                                                        <option>select your gender</option>
+                                                        <option value="MALE">MALE</option>
+                                                        <option value="FEMALE">FEMALE</option>
+                                                        </select>
                                                     </div>
                                                     </div>
                                                     <div className="col-12">
