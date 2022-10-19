@@ -3,6 +3,7 @@
 import React from 'react'
 import * as Icon from 'react-feather';
 import Image from 'next/image'
+import Link from 'next/link';
 
 export const Navbar = () => {
   return (
@@ -11,14 +12,14 @@ export const Navbar = () => {
   <div className="navbar-container d-flex content">
     <ul className="nav navbar-nav align-items-center ms-auto">
       <li className="nav-item d-none d-lg-block">
-        <a className="nav-link nav-link-style">
+        <Link className="nav-link nav-link-style">
           <Icon.Moon className="ficon"/>
-        </a>
+        </Link>
       </li>
       <li className="nav-item nav-search">
-        <a className="nav-link nav-link-search">
+        <Link className="nav-link nav-link-search">
           <Icon.Search className="ficon"/>
-        </a>
+        </Link>
         <div className="search-input">
           <div className="search-input-icon">
             <Icon.Search />
@@ -37,7 +38,7 @@ export const Navbar = () => {
         </div>
       </li>
       <li className="nav-item dropdown dropdown-user">
-        <a
+        <Link
           className="nav-link dropdown-toggle dropdown-user-link"
           id="dropdown-user"
           href="#"
@@ -59,21 +60,21 @@ export const Navbar = () => {
             />
             <span className="avatar-status-online" />
           </span>
-        </a>
+        </Link>
         <div
           className="dropdown-menu dropdown-menu-end"
           aria-labelledby="dropdown-user"
         >
-          <a
+          <Link
             className="dropdown-item"
             href="/settings"
           >
             <Icon.Settings className="me-50"/>
              Settings
-          </a>
-          <a className="dropdown-item" href="auth-login-cover.html">
+          </Link>
+          <Link className="dropdown-item" href="auth-login-cover.html">
             <Icon.Power className="me-50"/> Logout
-          </a>
+          </Link>
         </div>
       </li>
     </ul>
